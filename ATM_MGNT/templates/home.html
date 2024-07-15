@@ -1,8 +1,10 @@
 {% extends "layout/base.html" %}
 
 {% block title %}Dashboard{% endblock %}
+{% block dashboard %}nav-link active{% endblock %}
+{% block details %}nav-link{% endblock %}
 
-{% block content %}
+{% block body %}
 
     <h2>Welcome, {{ user.username }}</h2>
     <a href="{% url 'logout' %}">Logout</a>

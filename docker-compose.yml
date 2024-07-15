@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:8.0.26
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: Adm!n
+      MYSQL_DATABASE: atm_mgmt
+      MYSQL_USER: atm_user
+      MYSQL_PASSWORD: P@ssword
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 30s
+      retries: 10
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - application
+
+  migration:
+    image: devtest:latest
+    profiles: [initialize]
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    command: bash -c "python manage.py makemigrations && python manage.py migrate"
+    networks:
+      - application
+
+  app:
+    image: devtest:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "192.168.10.6:8000:8000"
+    env_file:
+      - .env
+    networks:
+      - application
+    volumes:
+      - .:/app
+
+networks:
+  application:

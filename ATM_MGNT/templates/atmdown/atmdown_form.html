@@ -1,0 +1,199 @@
+{% extends "../layout/base.html" %}
+
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+<!-- Bootstrap Color Picker -->
+<link rel="stylesheet" href="{% static 'plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' %}">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+
+
+<!-- Select2 -->{% endblock %}
+
+{% block dashboard %}nav-link active{% endblock %}
+{% block details %}nav-link{% endblock %}
+
+{% block body %}
+
+<div class="row">
+   <div class="col-md-12">
+     <div class="card card-success">
+       <div class="card-header">
+         <h3 class="card-title">ATM Down Form</h3>
+       </div>
+       <!-- form start -->
+       <form method="POST" action="atmdown_save">
+         {% csrf_token %}
+         <div class="card-body">
+           <div class="row">
+             <!-- Column 1: Email address -->
+             <div class="col-md-4">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">ATM Branch</label>
+                  <div class="input-group date" id="test" data-target-input="nearest">
+                      <select id="atm_branch" name="atm_branch" class="form-control">
+                          <option value=""></option> <!-- Empty option for placeholder -->
+                      </select>
+                  </div>
+              </div>
+          </div>
+          
+             <!-- Column 2: Password -->
+             <div class="col-md-4">
+               <div class="form-group">
+                 <label for="exampleInputPassword1">Terminal Code</label>
+                 <input type="text" class="form-control" name="terminal_code" id="terminal_code" placeholder="Terminal code" required>
+               </div>
+             </div>
+             <!-- Column 3: File input, Checkbox, and Submit button -->
+             <div class="col-4">
+              <div class="form-group">
+                <label for="atmBrand">ATM Brand</label>
+                <select name="atm_brand" id="atmBrand" class="form-control">
+                  <option value="">Select Reason</option>
+                  {% for brand in brands %}
+                    <option value="{{ brand.id }}">{{ brand.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+             
+           </div>
+           <!-- /.row -->
+           <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                 <label>Date:</label>
+                   <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                       <input type="text" name="down_date" class="form-control datetimepicker-input" data-target="#reservationdate" required>
+                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                       </div>
+                   </div>
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                 <label for="atmBrand">Down Reason</label>
+                 <select name="down_reason" id="atmBrand" class="form-control">
+                   <option value="">Select Reason</option>
+                   {% for reason in downreason %}
+                     <option value="{{ reason.id }}">{{ reason.name }}</option>
+                   {% endfor %}
+                 </select>
+               </div>
+             </div>
+            
+             <div class="col-4">
+               <div class="form-group">
+                 <label>Description</label>
+                 <textarea name="remarks" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+               </div>
+             </div>
+             <!-- /.col -->
+           </div>
+           <!-- /.row -->
+         </div>
+         <!-- /.card-body -->
+         <div class="card-footer">
+           <button type="submit" class="btn btn-success">Submit</button>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>
+ 
+{% endblock %}
+
+{% block js %}
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- Select2 -->
+<!-- Bootstrap4 Duallistbox -->
+<script src="{% static 'plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js' %}"></script>
+<!-- InputMask -->
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/inputmask/jquery.inputmask.min.js' %}"></script>
+<!-- date-range-picker -->
+<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+<!-- bootstrap color picker -->
+<script src="{% static 'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
+<!-- Bootstrap Switch -->
+<script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+<!-- BS-Stepper -->
+<script src="{% static 'plugins/bs-stepper/js/bs-stepper.min.js' %}"></script>
+<!-- dropzonejs -->
+<script src="{% static 'plugins/dropzone/min/dropzone.min.js' %}"></script>
+
+
+<!-- Page specific script -->
+<script>
+ $(function () {
+
+// Initialize date picker
+$('#reservationdate').datetimepicker({
+     format: 'YYYY-MM-DD'
+});
+
+var allotcatedTo = $('#atm_branch');
+var debounceTimer;
+
+// Initialize Select2
+allotcatedTo.select2({
+    placeholder: 'Enter Branch or Code',
+    ajax: {
+        url: '/get_atm',
+        dataType: 'json',
+        delay: 250,
+        data: function(params) {
+            return {
+                atm_branch: params.term
+            };
+        },
+        processResults: function(data) {
+            var suggestions = data.data.map(function(atm) {
+                var text = atm.terminal_branch + ' - (' + atm.terminal_code + ')';
+                return {
+                    id: atm.terminal_branch,
+                    terminal_code: atm.terminal_code,
+                    atm_brand: atm.atm_brand,
+                    text: text
+                };
+            });
+
+            return {
+                results: suggestions
+            };
+        },
+        cache: true
+    },
+    minimumInputLength: 1
+});
+
+// Event listener for 'select2:select'
+allotcatedTo.on('select2:select', function(e) {
+    var selectedData = e.params.data;
+    $('#terminal_code').val(selectedData.terminal_code);
+    $('#terminal_code').val(selectedData.terminal_code);
+    $('#atm_brand').val(selectedData.atm_brand_id).trigger('change');
+
+    // Additional fields you want to populate can be handled similarly
+});
+
+});
+
+</script>
+{% endblock %}
