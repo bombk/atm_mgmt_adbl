@@ -2,6 +2,7 @@
 
 {% load static %}
 {% block title %}Dashboard{% endblock %}
+
 {% block css %}
 
 <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
@@ -17,8 +18,9 @@
 
 <!-- Select2 -->{% endblock %}
 
-{% block dashboard %}nav-link active{% endblock %}
-{% block details %}nav-link{% endblock %}
+{% block down_open %}menu-open{% endblock %}
+{% block down_detail %}active{% endblock %}
+{% block down_form %}active{% endblock %}
 
 {% block body %}
 
@@ -56,12 +58,7 @@
              <div class="col-4">
               <div class="form-group">
                 <label for="atmBrand">ATM Brand</label>
-                <select name="atm_brand" id="atmBrand" class="form-control">
-                  <option value="">Select Reason</option>
-                  {% for brand in brands %}
-                    <option value="{{ brand.id }}">{{ brand.name }}</option>
-                  {% endfor %}
-                </select>
+                <input type="text" class="form-control" name="atm_brand" id="atm_brand">
               </div>
             </div>
              
@@ -164,12 +161,13 @@ allotcatedTo.select2({
             };
         },
         processResults: function(data) {
+        console.log(data);
             var suggestions = data.data.map(function(atm) {
                 var text = atm.terminal_branch + ' - (' + atm.terminal_code + ')';
                 return {
                     id: atm.terminal_branch,
                     terminal_code: atm.terminal_code,
-                    atm_brand: atm.atm_brand,
+                    atm_brand: atm.atm_brand__name,
                     text: text
                 };
             });
@@ -188,7 +186,7 @@ allotcatedTo.on('select2:select', function(e) {
     var selectedData = e.params.data;
     $('#terminal_code').val(selectedData.terminal_code);
     $('#terminal_code').val(selectedData.terminal_code);
-    $('#atm_brand').val(selectedData.atm_brand_id).trigger('change');
+    $('#atm_brand').val(selectedData.atm_brand).trigger('change');
 
     // Additional fields you want to populate can be handled similarly
 });

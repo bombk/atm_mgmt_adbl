@@ -54,7 +54,7 @@ def get_atm(request):
             get_data = ATM.objects.filter(
                 Q(terminal_branch__icontains=atm_branch) |
                 Q(terminal_code__icontains=atm_branch)
-            ).values('id', 'terminal_branch', 'terminal_code')
+            ).values('id', 'terminal_branch', 'terminal_code','atm_brand__name')
 
             return JsonResponse({'data': list(get_data)})
         else:

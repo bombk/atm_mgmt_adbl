@@ -35,7 +35,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{% static 'dist/img/adbl_logo.png' %}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
   <!-- Navbar -->
@@ -84,7 +84,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-success elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{% url 'home' %}" class="brand-link">
       <img src="{% static 'dist/img/adbl_logo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">ATM MGNT</span>
     </a>
@@ -97,8 +97,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="{% block dashboard %}{% endblock %}">
+          <li class="nav-item {% block atm_open %} {% endblock %}">
+            <a href="#" class="nav-link {% block atm_main %}{% endblock %}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 ATM Details
@@ -107,15 +107,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'atmlist' %}" class="nav-link active">
+                <a href="{% url 'atmlist' %}" class="nav-link {% block atm_list %}{% endblock %}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>ATM List</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="{% block details %}{% endblock %}">
+          <li class="nav-item {% block down_open %} {% endblock %}">
+            <a href="#" class="nav-link {% block down_detail %}{% endblock %}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 ATM Down
@@ -124,13 +124,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'atmdown_list' %}" class="nav-link">
+                <a href="{% url 'atmdown_list' %}" class="nav-link {% block down_list %}{% endblock %}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>ATM Down List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'atmdown' %}" class="nav-link">
+                <a href="{% url 'atmdown' %}" class="nav-link {% block down_form %}{% endblock %}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add ATM Down</p>
                 </a>
@@ -225,8 +225,5 @@
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{% static 'dist/js/demo.js' %}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="{% static 'dist/js/pages/dashboard.js' %}"></script> -->
 {% block js %}{% endblock %}
 </html>
