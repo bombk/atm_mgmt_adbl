@@ -46,11 +46,12 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{% url 'home' %}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
+
     </ul>
 
     <!-- Right navbar links -->
@@ -72,10 +73,15 @@
                   <i class="fas fa-times"></i>
                 </button>
               </div>
+
             </div>
           </form>
         </div>
       </li>
+      <li>
+       <a class="nav-link"> Welcome,{{ user.username }}</a>
+      </li>
+      
       </li>
     </ul>
   </nav>
@@ -105,6 +111,14 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link {% block atm_dashboard %}{% endblock %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+            </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{% url 'atmlist' %}" class="nav-link {% block atm_list %}{% endblock %}">
@@ -137,7 +151,14 @@
               </li>
             </ul>
           </li>
-          
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link ">
+              <i class="nav-icon fas fas fa-sign-out-alt"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>        
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

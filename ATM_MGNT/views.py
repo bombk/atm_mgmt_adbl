@@ -11,7 +11,8 @@ from .models import ATM , DownReason , ATMDown , Brand
 
 @login_required
 def home_view(request):
-    return render(request, 'home.html')
+    group = request.user.groups.first()
+    return render(request, 'home.html', {'group': group})
 
 def atm_list(request):
     atm = ATM.objects.all()
@@ -70,7 +71,17 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Replace 'home' with your desired redirect URL
+                if user.is_superuser:
+                    return redirect('/admin/')
+                else:
+                    return redirect('home')
+                # Redirect to a success page
+            else:
+                # Return an invalid response
+                return JsonResponse({'error': 'Invalid credentials'}, status=400)
+        else:
+            # Return an invalid response
+            return JsonResponse({'error': 'Invalid credentials'}, status=400)                
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
