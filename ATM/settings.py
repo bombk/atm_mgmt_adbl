@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jnfk192lrh!g9o3s(wo#rbn#8i*)_d)g-j^7!)=%qinp12dpab'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG','False')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS','*')]
 
 
 # Application definition
@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'ATM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',  # Or your database server's address
-        'PORT': '5432',       # Default MySQL port
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),  # Or your database server's address
+        'PORT': os.getenv('DB_PORT'),       # Default MySQL port
     }
 }
 
