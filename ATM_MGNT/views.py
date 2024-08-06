@@ -14,15 +14,17 @@ def home_view(request):
     group = request.user.groups.first()
     return render(request, 'home.html', {'group': group})
 
+@login_required
 def atm_list(request):
     atm = ATM.objects.all()
     return render(request, 'atmlist.html', {'atm': atm})
 
+@login_required
 def atm_down(request):
     downreason=DownReason.objects.all()
     brands=Brand.objects.all()
     return render(request, 'atmdown/atmdown_form.html', {'downreason':downreason,'brands':brands})
-
+@login_required
 def atm_down_save(request):
     if request.method == 'POST':
         atm_branch = request.POST.get('atm_branch')
@@ -37,7 +39,7 @@ def atm_down_save(request):
         atm_down = ATMDown(terminal_branch=atm_branch, terminal_code=terminal_code, atm_brand=atm_brand, down_date=down_date, down_reason_id=down_reason, remarks=remarks)
         atm_down.save()
         return redirect('atmdown')
-
+@login_required
 def atm_down_list(request):
     atmdown = ATMDown.objects.all()
     return render(request, 'atmdown/atmdown_list.html', {'atmdown': atmdown})
@@ -86,6 +88,7 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to login page after logout
