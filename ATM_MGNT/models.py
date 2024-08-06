@@ -37,7 +37,7 @@ class ATMDown(models.Model):
     terminal_branch = models.CharField(max_length=255)
     atm_brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     down_date= models.DateField()
-    down_reason = models.ForeignKey(DownReason, on_delete=models.CASCADE)
+    down_reason = models.CharField(max_length=200)
     remarks= models.CharField(max_length=255)
 
     def __str__(self):  
