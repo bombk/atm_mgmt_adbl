@@ -34,7 +34,7 @@ def atm_down_save(request):
          # Retrieve the Brand and DownReason instances
         # atm_brand = get_object_or_404(Brand, pk=atm_brand_id)
         # down_reason = get_object_or_404(DownReason, pk=down_reason_id)
-        atm_down = ATMDown(terminal_branch=atm_branch, terminal_code=terminal_code, atm_brand_id=atm_brand, down_date=down_date, down_reason_id=down_reason, remarks=remarks)
+        atm_down = ATMDown(terminal_branch=atm_branch, terminal_code=terminal_code, atm_brand=atm_brand, down_date=down_date, down_reason_id=down_reason, remarks=remarks)
         atm_down.save()
         return redirect('atmdown')
 
