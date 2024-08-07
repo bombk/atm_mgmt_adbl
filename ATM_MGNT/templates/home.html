@@ -1,10 +1,27 @@
 {% extends "layout/base.html" %}
+{% load static %}
 
 {% block atm_open %}menu-open{% endblock %}
 {% block atm_main %}active{% endblock %}
 {% block atm_dashboard %}active{% endblock %}
 
 {% block body %}
-
-    <h2>Welcome, {{ user.username }}</h2>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Agriculture Development Bank ATM Dashboard</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <img src="{% static 'dist/img/backgroup_logo.jpg' %}" class="img-fluid mx-auto d-block rounded" alt="Background Logo">
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <p>Contact us: <a href="mailto:info@agriculturebank.com">info@agriculturebank.com</a> | Phone: +1234567890</p>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+    </div>
+</div>
 {% endblock %}
