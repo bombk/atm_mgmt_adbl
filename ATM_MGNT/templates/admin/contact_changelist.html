@@ -1,0 +1,15 @@
+<!-- templates/admin/contact_changelist.html -->
+
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+<div>
+    <h2>Upload CSV</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin:upload_csv' %}">
+        {% csrf_token %}
+        {{ upload_form.as_p }}
+        <button type="submit" class="button">Upload</button>
+    </form>
+</div>
+{{ block.super }}
+{% endblock %}
