@@ -31,7 +31,6 @@
                           <th>Brand</th>
                           <th>Account No.</th>
                           <th>Status</th>
-                          <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,7 +42,6 @@
                             <td>{{ atm.atm_brand }}</td>
                             <td>{{ atm.atm_acc_no }}</td>
                             <td>Online</td>
-                            <td><a href="">Edit</a></td>
                         </tr>
                         {% endfor %}
                         
@@ -76,7 +74,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": [ "excel",]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

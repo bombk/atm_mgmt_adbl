@@ -31,7 +31,7 @@
                           <th>Down Date</th>
                           <th>Down Reason</th>
                           <th>Remarks</th>
-                          <th>Action</th>
+                          <!-- <th>Action</th> -->
                         </tr>
                         </thead>
                         <tbody>
@@ -43,7 +43,7 @@
                             <td>{{ atm.down_date }}</td>
                             <td>{{ atm.down_reason }}</td>
                             <td>{{ atm.remarks }}</td>
-                            <td><a href="">Edit</a></td>
+                            <!-- <td><a href="">Edit</a></td> -->
                         </tr>
                         {% endfor %}
                         
@@ -76,7 +76,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["excel"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
