@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 
 class Brand(models.Model):
@@ -43,4 +44,31 @@ class ATMDown(models.Model):
 
     def __str__(self):  
         return self.terminal_code
+
+class ATMDowntime(models.Model):
+    terminal_code = models.CharField(max_length=100)
+    terminal_branch = models.CharField(max_length=255)
+    atm_brand = models.CharField(max_length=100)
+    start_date= models.DateTimeField()
+    end_date= models.DateTimeField()
+    remarks= models.CharField(max_length=255)
+
+    def __str__(self):  
+        return self.terminal_code
+
+class ATMContact(models.Model):
+    atm_branch = models.ForeignKey(ATM, on_delete=models.CASCADE, to_field='terminal_code')
+    full_name = models.CharField(max_length=100)
+    mobile = models.CharField(
+            max_length=10,
+            validators=[
+                RegexValidator(
+                    regex=r'^\d{10}$',
+                    message="Mobile number must be exactly 10 digits."
+                )
+            ]
+        )
+
+    def __str__(self):
+        return f"{self.full_name} - {self.atm_branch.terminal_branch} - {self.mobile}"
 

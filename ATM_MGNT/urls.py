@@ -10,4 +10,5 @@ urlpatterns = [
     path('atmdown_save', views.atm_down_save, name='atmdown_save'),
     path('get_atm', views.get_atm, name='get_atm'),
     path('atmdown_list', views.atm_down_list, name='atmdown_list'),
+    path('contact', views.contact_list, name='contact'),
 ]

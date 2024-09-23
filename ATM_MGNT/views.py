@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
-from .models import ATM , DownReason , ATMDown , Brand
+from .models import ATM , DownReason , ATMDown , Brand , ATMContact
 
 
 @login_required
@@ -87,6 +87,11 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+@login_required
+def contact_list(request):
+    contacts = ATMContact.objects.all()
+    return render(request, 'contact/contact_list.html', {'contacts': contacts})
 
 @login_required
 def logout_view(request):

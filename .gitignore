@@ -1,6 +1,8 @@
 # Python
 *.py[cod]
 __pycache__/
+*.pyc
+ATM_MGNT/migrations/*
 *.sw[op]
 .Python
 

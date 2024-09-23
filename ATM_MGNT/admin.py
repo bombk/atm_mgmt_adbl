@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path
 from django.http import HttpResponseRedirect
-from .models import Brand, ATM , DownReason
+from .models import Brand, ATM , DownReason,ATMContact
 from django import forms
 import csv
 import io
@@ -77,3 +77,4 @@ class ATMAdmin(admin.ModelAdmin):
         return super(ATMAdmin, self).changelist_view(request, extra_context=extra_context)
 
 admin.site.register(ATM, ATMAdmin)
+admin.site.register(ATMContact)
