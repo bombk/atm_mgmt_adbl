@@ -25,6 +25,7 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
+                          <th>SN</th>
                           <th>Branch</th>
                           <th>Terminal Code</th>
                           <th>IP</th>
@@ -36,12 +37,19 @@
                         <tbody>
                         {% for atm in atm %}
                         <tr>
+                            <td>{{ forloop.counter }}</td>
                             <td>{{ atm.terminal_branch }}</td>
                             <td>{{ atm.terminal_code }}</td>
                             <td>{{ atm.atm_ip }}</td>
                             <td>{{ atm.atm_brand }}</td>
                             <td>{{ atm.atm_acc_no }}</td>
-                            <td>Online</td>
+                            <td>
+                              {% if atm.atm_online is True %}
+                                <span class="badge badge-success">Online</span>
+                              {% else %}
+                                <span class="badge badge-danger">Offline</span>
+                              {% endif %}
+                          </td>
                         </tr>
                         {% endfor %}
                         

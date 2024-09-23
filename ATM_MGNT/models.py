@@ -22,6 +22,7 @@ class ATM(models.Model):
     atm_storage = models.CharField(null=True, blank=True,max_length=50)
     atm_os = models.CharField(null=True, blank=True,max_length=50)
     atm_bit = models.CharField(null=True, blank=True,max_length=10)
+    atm_online=models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.terminal_code} - {self.atm_brand}"
