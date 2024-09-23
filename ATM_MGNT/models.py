@@ -70,5 +70,5 @@ class ATMContact(models.Model):
         )
 
     def __str__(self):
-        return f"{self.full_name} - {self.atm_branch.terminal_branch} - {self.mobile}"
+        return f"{self.atm_branch.terminal_branch} - {self.full_name} - {self.mobile}"
 
