@@ -77,4 +77,11 @@ class ATMAdmin(admin.ModelAdmin):
         return super(ATMAdmin, self).changelist_view(request, extra_context=extra_context)
 
 admin.site.register(ATM, ATMAdmin)
-admin.site.register(ATMContact)
+@admin.register(ATMContact)
+class ATMContactAdmin(admin.ModelAdmin):
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        # Customize the label for the atm_branch dropdown
+        form.base_fields['atm_branch'].label_from_instance = lambda obj: obj.terminal_branch
+        return form
