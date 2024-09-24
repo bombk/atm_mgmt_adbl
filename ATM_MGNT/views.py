@@ -40,7 +40,7 @@ def atm_down_save(request):
         atm_down.save()
         return redirect('atmdown')
 @login_required
-def atm_down_list(request):
+def file_transfer_down(request):
     atmdown = ATMDown.objects.all()
     return render(request, 'atmdown/atmdown_list.html', {'atmdown': atmdown})
 
