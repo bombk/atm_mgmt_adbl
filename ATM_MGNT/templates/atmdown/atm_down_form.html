@@ -1,7 +1,7 @@
 {% extends "../layout/base.html" %}
 
 {% load static %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}ATM Down{% endblock %}
 
 {% block css %}
 
@@ -18,9 +18,9 @@
 
 <!-- Select2 -->{% endblock %}
 
-{% block down_open %}menu-open{% endblock %}
-{% block down_detail %}active{% endblock %}
-{% block down_form %}active{% endblock %}
+{% block atm_down %}menu-open{% endblock %}
+{% block atm_down_detail %}active{% endblock %}
+{% block atm_down_form %}active{% endblock %}
 
 {% block body %}
 
@@ -31,7 +31,7 @@
          <h3 class="card-title">ATM Down Form</h3>
        </div>
        <!-- form start -->
-       <form method="POST" action="atmdown_save">
+       <form method="POST" action="add_atmdown">
          {% csrf_token %}
          <div class="card-body">
            <div class="row">
@@ -67,7 +67,7 @@
            <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                 <label>Date:</label>
+                 <label>Start Date:</label>
                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
                        <input type="text" name="down_date" class="form-control datetimepicker-input" data-target="#reservationdate" required>
                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
@@ -76,21 +76,10 @@
                    </div>
                </div>
             </div>
-            <div class="col-4">
-               <div class="form-group">
-                 <label for="atmBrand">Down Reason</label>
-                 <select name="down_reason" id="atmBrand" class="form-control">
-                   <option value="">Select Reason</option>
-                   {% for reason in downreason %}
-                     <option value="{{ reason.id }}">{{ reason.name }}</option>
-                   {% endfor %}
-                 </select>
-               </div>
-             </div>
             
-             <div class="col-4">
+             <div class="col-8">
                <div class="form-group">
-                 <label>Description</label>
+                 <label>Details</label>
                  <textarea name="remarks" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                </div>
              </div>
@@ -142,6 +131,9 @@
 
 // Initialize date picker
 $('#reservationdate').datetimepicker({
+     format: 'YYYY-MM-DD'
+});
+$('#end_date').datetimepicker({
      format: 'YYYY-MM-DD'
 });
 

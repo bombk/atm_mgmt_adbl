@@ -1,0 +1,92 @@
+
+{% extends "../layout/base.html" %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block atm_down %}menu-open{% endblock %}
+{% block atm_down_detail %}active{% endblock %}
+{% block old_down_list %}active{% endblock %}
+
+
+{% block body %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-success">
+                    <div class="card-header">
+                      <h3 class="card-title">ATM Down List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                          <th>SN</th>
+                          <th>Branch</th>
+                          <th>Terminal Code</th>
+                          <th>ATM Brand</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for atm in atmdown %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ atm.terminal_branch }}</td>
+                            <td>{{ atm.terminal_code }}</td>
+                            <td>{{ atm.atm_brand }}</td>
+                            <td>{{ atm.start_date }}</td>
+                            <td>{{ atm.end_date | default_if_none:"-" }}</td>
+                            <td>{{ atm.remarks }}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                        </tbody>
+                        
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+            </div>
+        </div>
+{% endblock %}
+{% block js %}
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["excel"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+
+
+</script>
+{% endblock %}

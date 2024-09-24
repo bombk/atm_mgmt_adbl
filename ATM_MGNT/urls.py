@@ -11,4 +11,8 @@ urlpatterns = [
     path('get_atm', views.get_atm, name='get_atm'),
     path('atmdown_list', views.atm_down_list, name='atmdown_list'),
     path('contact', views.contact_list, name='contact'),
+    path('add_atmdown',views.add_atmdown,name='add_atmdown'),
+    path('atm_down_list',views.atm_down_list,name='atm_down_list'),
+    path('update_atmdown/<int:id>',views.update_atmdown,name='update_atmdown'),
+    path('past_atm_down_list',views.past_atm_down_list,name='past_atm_down_list'),
 ]
