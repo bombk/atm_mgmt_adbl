@@ -16,7 +16,7 @@ def home_view(request):
 
 @login_required
 def atm_list(request):
-    atm = ATM.objects.all()
+    atm = ATM.objects.all().order_by('terminal_branch')
     return render(request, 'atmlist.html', {'atm': atm})
 
 @login_required
@@ -41,7 +41,7 @@ def atm_down_save(request):
         return redirect('atmdown')
 @login_required
 def file_transfer_down(request):
-    atmdown = ATMDown.objects.all()
+    atmdown = ATMDown.objects.all().order_by('-down_date')
     return render(request, 'atmdown/atmdown_list.html', {'atmdown': atmdown})
 
 
@@ -125,7 +125,7 @@ def add_atmdown(request):
 
 @login_required
 def atm_down_list(request):
-    atmdown = ATMDowntime.objects.filter(end_date__isnull=True)
+    atmdown = ATMDowntime.objects.filter(end_date__isnull=True).order_by('-start_date')
     return render(request, 'atmdown/atm_down_list.html', {'atmdown': atmdown})
 
 @login_required
@@ -141,7 +141,7 @@ def update_atmdown(request, id):
 
 @login_required
 def past_atm_down_list(request):
-    atmdown = ATMDowntime.objects.filter(end_date__isnull=False)
+    atmdown = ATMDowntime.objects.filter(end_date__isnull=False).order_by('-start_date')
     return render(request, 'atmdown/past_atm_down.html', {'atmdown': atmdown})
 @login_required
 def logout_view(request):

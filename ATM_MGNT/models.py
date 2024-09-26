@@ -50,7 +50,7 @@ class ATMDowntime(models.Model):
     terminal_code = models.CharField(max_length=100, null=False, blank=False)
     terminal_branch = models.CharField(max_length=255, null=False, blank=False)
     atm_brand = models.CharField(max_length=100)
-    start_date= models.DateField(null=True, blank=True,auto_now=True)
+    start_date= models.DateField(null=True, blank=True)
     end_date= models.DateField(null=True, blank=True)
     remarks= models.CharField(max_length=255)
 
