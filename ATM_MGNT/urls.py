@@ -15,4 +15,5 @@ urlpatterns = [
     path('atm_down_list',views.atm_down_list,name='atm_down_list'),
     path('update_atmdown/<int:id>',views.update_atmdown,name='update_atmdown'),
     path('past_atm_down_list',views.past_atm_down_list,name='past_atm_down_list'),
+    path('vendor_contact',views.vendor_contact,name='vendor_contact'),
 ]

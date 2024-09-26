@@ -72,4 +72,20 @@ class ATMContact(models.Model):
 
     def __str__(self):
         return f"{self.atm_branch.terminal_branch} - {self.full_name} - {self.mobile}"
+    
+
+class VenderContact(models.Model):
+    vender_name= models.CharField(max_length=100)
+    mobile = models.CharField(
+            max_length=10,
+            validators=[
+                RegexValidator(
+                    regex=r'^\d{10}$',
+                    message="Mobile number must be exactly 10 digits."
+                )
+            ]
+        )
+    def __str__(self):
+        return f"{self.vender_name} - {self.mobile}"
+
 

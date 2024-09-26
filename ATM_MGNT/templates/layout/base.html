@@ -43,10 +43,6 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'home' %}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{% url 'contact' %}" class="nav-link">Contacts</a>
-      </li>
-
     </ul>
 
     <!-- Right navbar links -->
@@ -175,13 +171,28 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="{% url 'contact' %}" class="nav-link {% block contact %}{% endblock %}">
+          <li class="nav-item {% block contact_open %} {% endblock %}">
+            <a href="#" class="nav-link {% block contact %}{% endblock %}">
               <i class="nav-icon fas fas  fa-address-book"></i>
               <p>
                 Contacts
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'contact' %}" class="nav-link {% block contact_list %}{% endblock %}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>ATM Support</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'vendor_contact' %}" class="nav-link {% block vendor_list %}{% endblock %}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Vender Support</p>
+                  </a>
+                </li>
+              </ul>
           </li> 
           <li class="nav-item">
             <a href="{% url 'logout' %}" class="nav-link ">

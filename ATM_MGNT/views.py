@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
-from .models import ATM , DownReason , ATMDown , Brand , ATMContact , ATMDowntime
+from .models import ATM , DownReason , ATMDown , Brand , ATMContact , ATMDowntime,VenderContact
 
 
 @login_required
@@ -90,8 +90,14 @@ def login_view(request):
 
 @login_required
 def contact_list(request):
-    contacts = ATMContact.objects.all()
+    contacts = ATMContact.objects.all().order_by('atm_branch')
     return render(request, 'contact/contact_list.html', {'contacts': contacts})
+
+@login_required
+def vendor_contact(request):
+    contacts = VenderContact.objects.all().order_by('vender_name')
+    return render(request, 'contact/vender_contact.html', {'contacts': contacts})
+
 
 @login_required
 def add_atmdown(request):

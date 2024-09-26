@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path
 from django.http import HttpResponseRedirect
-from .models import Brand, ATM , DownReason,ATMContact
+from .models import Brand, ATM , DownReason,ATMContact,VenderContact
 from django import forms
 import csv
 import io
@@ -17,6 +17,10 @@ class BrandAdmin(admin.ModelAdmin):
 class DownReasonAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+@admin.register(VenderContact)
+class VenderContactAdmin(admin.ModelAdmin):
+    list_display = ('vender_name', 'mobile')
+    search_fields = ('vender_name', 'mobile')
 
 class CSVUploadForm(forms.Form):
     csv_file = forms.FileField()
