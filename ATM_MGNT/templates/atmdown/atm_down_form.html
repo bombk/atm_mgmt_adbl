@@ -26,6 +26,11 @@
 
 <div class="row">
    <div class="col-md-12">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-info text-center">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
      <div class="card card-success">
        <div class="card-header">
          <h3 class="card-title">ATM Down Form</h3>

@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
 from .models import ATM , DownReason , ATMDown , Brand , ATMContact , ATMDowntime,VenderContact
 
 
@@ -38,6 +39,7 @@ def atm_down_save(request):
         # down_reason = get_object_or_404(DownReason, pk=down_reason_id)
         atm_down = ATMDown(terminal_branch=atm_branch, terminal_code=terminal_code, atm_brand=atm_brand, down_date=down_date, down_reason_id=down_reason, remarks=remarks)
         atm_down.save()
+        messages.success(request, 'Record saved successfully.')
         return redirect('atmdown')
 @login_required
 def file_transfer_down(request):
@@ -120,6 +122,8 @@ def add_atmdown(request):
 
                 atm.atm_online = False  # Set atm_online to False
                 atm.save()
+                messages.success(request, 'Record saved successfully.')
+
             else:
                 return JsonResponse({'error': 'ATM is already down'}, status=400)
         except ATM.DoesNotExist:
