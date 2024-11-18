@@ -133,3 +133,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'  # Replace 'home' with your desired redirect URL after login
 LOGOUT_REDIRECT_URL = 'login'  # Redirect to login page after logout
+
+# Sets the session to expire after 300 seconds (5 minutes)
+SESSION_COOKIE_AGE = 300  # 300 seconds = 5 minutes
+
+# Optional settings for stricter control over session expiration
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Ends the session when the browser is closed
+SESSION_SAVE_EVERY_REQUEST = True  # Resets the session timeout on every request
+

@@ -5,6 +5,7 @@ __pycache__/
 ATM_MGNT/migrations/*
 *.sw[op]
 .Python
+*.pyc
 
 # Django
 *.log
